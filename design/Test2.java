@@ -19,8 +19,12 @@ class Point {
     this.y += p.y;
   }
 
-  public void render(){
-    System.out.println("x=" + this.x + ", y=" + this.y);
+  public int getX(){
+    return this.x;
+  }
+
+  public int getY(){
+    return this.y;
   }
 }
 
@@ -44,53 +48,32 @@ class Point3D extends Point {
     this.z += p.z;
   }
 
-  public void render(){
-    System.out.println("x=" + this.x + ", y=" + this.y + ", z=" + this.z);
+  public int getZ(){
+    return this.z;
   }
 }
 
 class Calculator {
-  private Point inputPointA = null;
-  private Point inputPointB = null;
-  private Point resultPoint = null;
-
-  public void setPointA(Point a){
-    this.inputPointA = a;
+  public Point add(Point a, Point b){
+    Point resultPoint = new Point(a);
+    resultPoint.add(b);
+    return resultPoint;
   }
 
-  public void setPointB(Point b){
-    this.inputPointB = b;
-  }
-
-  public void add(){
-    this.resultPoint = new Point(inputPointA);
-    this.resultPoint.add(inputPointB);
-  }
-
-  public void render(){
-    this.resultPoint.render();
+  public Point3D add(Point3D a, Point3D b){
+    Point3D resultPoint = new Point3D(a);
+    resultPoint.add(b);
+    return resultPoint;
   }
 }
 
-class Calculator3D extends Calculator{
-  protected Point3D inputPointA = null;
-  protected Point3D inputPointB = null;
-  protected Point3D resultPoint = null;
-
-  public void setPointA(Point3D a){
-    this.inputPointA = a;
+class Renderer {
+  public void render(Point p){
+    System.out.println("x=" + p.getX() + ", y=" + p.getY());
   }
 
-  public void setPointB(Point3D b){
-    this.inputPointB = b;
-  }
-
-  public void add(){
-    this.resultPoint = new Point3D(inputPointA);
-    this.resultPoint.add(inputPointB);
-  }
-  public void render(){
-    this.resultPoint.render();
+  public void render(Point3D p){
+    System.out.println("x=" + p.getX() + ", y=" + p.getY() + ", z=" + p.getZ());
   }
 }
 
@@ -100,18 +83,18 @@ class Test2 {
     // Point point_2 = new Point(3, 4);
 
     // Calculator calc = new Calculator();
-    // calc.setPointA(point_1);
-    // calc.setPointB(point_2);
-    // calc.add();
-    // calc.render();
+    // Point resultPoint = calc.add(point_1, point_2);
+
+    // Renderer renderer = new Renderer();
+    // renderer.render(resultPoint);
 
     Point3D point_1 = new Point3D(1, 2, 5);
     Point3D point_2 = new Point3D(3, 4, 6);
 
     Calculator3D calc = new Calculator3D();
-    calc.setPointA(point_1);
-    calc.setPointB(point_2);
-    calc.add();
-    calc.render();
+    Point3D resultPoint = calc.add(point_1, point_2);
+
+    Renderer renderer = new Renderer();
+    renderer.render(resultPoint);
   }
 }
